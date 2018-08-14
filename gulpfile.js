@@ -40,7 +40,7 @@ const path = {
 };
 
 // RELOAD BROWSER
-gulp.task('reload', () => browserSync.reload({ stream: true }));
+gulp.task('reload', () => browserSync.reload());
 
 // DELETE DIST FOLDER
 gulp.task('clean', () => del(path.dist.main));
