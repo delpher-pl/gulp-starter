@@ -1,7 +1,4 @@
-@import "normalize/import-now";
-
-@import "global/index";
-@import "vendors/index";
-@import "layouts/index";
-@import "components/index";
-@import "pages/index";
+@import "0-vendors/!index";
+@import "1-base/!index";
+@import "2-layout/!index";
+@import "3-module/!index";

@@ -1,0 +1,50 @@
+@mixin center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@mixin center-both {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  @include prefix(transform, translate(-50%, -50%), 'webkit' 'ms');
+}
+
+@mixin pseudo($display: block, $pos: absolute, $content: ''){
+  content: $content;
+  display: $display;
+  position: $pos;
+}
+
+@mixin mq($width, $type: min) {
+  @if map_has_key($breakpoints, $width) {
+      $width: map_get($breakpoints, $width);
+      @if $type == max {
+          $width: $width - 1px;
+      }
+      @media only screen and (#{$type}-width: $width) {
+          @content;
+      }
+  }
+}
+
+// Simple and effective for when you need to trigger hardware acceleration 
+// for some animation, keeping everything fast, slick and flicker-free. 
+@mixin hardware($backface: true, $perspective: 1000) {
+  @if $backface {
+      backface-visibility: hidden;
+  }
+  perspective: $perspective;
+}
+
+// Hide from both screenreaders and browsers
+@mixin hidden {
+	display: none;
+	visibility: hidden;
+}
+
+@mixin visible($state: 'block') {
+	display: unquote($state);
+	visibility: visible;
+}
