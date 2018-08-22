@@ -1,6 +1,6 @@
 const gulp = require('gulp');
 const browserSync = require('browser-sync').create();
-
+const tildeImporter = require('node-sass-tilde-importer');
 const del = require('del');
 const sequence = require('run-sequence');
 const sourcemaps = require('gulp-sourcemaps');
@@ -61,6 +61,9 @@ gulp.task('html', () => {
 
 gulp.task('sass', () => {
   gulp.src(path.src.scssFileMain)
+    .pipe(sass({
+      importer: tildeImporter,
+    }))
     .pipe(sourcemaps.init())
     .pipe(sass())
     .pipe(autoprefixer({
