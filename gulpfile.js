@@ -2,7 +2,6 @@ const gulp = require('gulp');
 const browserSync = require('browser-sync').create();
 const tildeImporter = require('node-sass-tilde-importer');
 const del = require('del');
-const sequence = require('run-sequence');
 const sourcemaps = require('gulp-sourcemaps');
 const concat = require('gulp-concat');
 
@@ -39,13 +38,20 @@ const path = {
   },
 };
 
+
 // RELOAD BROWSER
-gulp.task('reload', () => browserSync.reload());
+gulp.task('reload', (done) => {
+  browserSync.reload();
+  done();
+});
 
 // DELETE DIST FOLDER
-gulp.task('clean', () => del(path.dist.main));
+gulp.task('clean', (done) => {
+  del(path.dist.main);
+  done();
+});
 
-gulp.task('html', () => {
+gulp.task('html', (done) => {
   gulp.src(path.src.htmlFilesAll)
     .pipe(htmlReplace({
       css: 'css/style.css',
@@ -57,9 +63,10 @@ gulp.task('html', () => {
       collapseWhitespace: true,
     }))
     .pipe(gulp.dest(path.dist.main));
+  done();
 });
 
-gulp.task('sass', () => {
+gulp.task('sass', (done) => {
   gulp.src(path.src.scssFileMain)
     .pipe(sass({
       importer: tildeImporter,
@@ -77,9 +84,10 @@ gulp.task('sass', () => {
     .pipe(cleanCSS())
     .pipe(sourcemaps.write('maps'))
     .pipe(gulp.dest(path.dist.css));
+  done();
 });
 
-gulp.task('js', () => {
+gulp.task('js', (done) => {
   gulp.src([
     path.src.jsFilesAll,
   ])
@@ -87,43 +95,30 @@ gulp.task('js', () => {
     .pipe(babel({ presets: ['es2015'] }))
     .pipe(uglify())
     .pipe(gulp.dest(path.dist.js));
+  done();
 });
 
 
-gulp.task('serve', () => {
+gulp.task('serve', (done) => {
   browserSync.init({
     server: './dist/',
     open: false,
   });
+  done();
 });
 
-gulp.task('watch', () => {
-  gulp.watch(path.src.htmlFilesAll, () => {
-    sequence('html', 'reload');
-  });
-  gulp.watch(path.src.scssFilesAll, () => {
-    sequence('sass', 'reload');
-  });
-  gulp.watch(path.src.jsFilesAll, () => {
-    sequence('js', 'reload');
-  });
-});
-
-gulp.task('default', () => {
-  gulp.start('build');
-});
-
-gulp.task('build', ['clean'], () => {
-  sequence(['html', 'sass', 'js']);
-});
-
-gulp.task('run', ['clean'], () => {
-  sequence(['html', 'sass', 'js'], 'serve', 'watch');
+gulp.task('watch', (done) => {
+  gulp.watch(path.src.htmlFilesAll, gulp.series('html', 'reload'));
+  gulp.watch(path.src.scssFilesAll, gulp.series('sass', 'reload'));
+  gulp.watch(path.src.jsFilesAll, gulp.series('js', 'reload'));
+  done();
 });
 
 
-//
-//
-// gulp.task('cssMin', () => {});
-// gulp.task('jsImportLibs', () => {});
+gulp.task('build', gulp.series('clean', 'html', 'sass', 'js'));
+
+gulp.task('run', gulp.series('clean', 'html', 'sass', 'js', gulp.parallel('serve', 'watch')));
+
+gulp.task('default', gulp.series('build'));
+
 // gulp.task('static', () => {});
