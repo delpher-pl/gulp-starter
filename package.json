@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "font-awesome": "^4.7.0",
+    "@fortawesome/fontawesome-free": "^5.2.0",
     "normalize-scss": "^7.0.1"
   },
   "devDependencies": {
