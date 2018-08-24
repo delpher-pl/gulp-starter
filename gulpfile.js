@@ -30,6 +30,11 @@ const path = {
     js: './src/js/',
     jsFileMain: './src/js/main.js',
     jsFilesAll: './src/js/**/*.js',
+    static: {
+      fonts: './src/fonts/**/*.*',
+      icons: './src/icons/**/*.*',
+      images: './src/img/**/*.*',
+    },
   },
   dist: {
     main: './dist/',
@@ -98,6 +103,12 @@ gulp.task('js', (done) => {
   done();
 });
 
+gulp.task('static', (done) => {
+  gulp.src(Object.values(path.src.static))
+    .pipe(gulp.dest(path.dist.main));
+  done();
+});
+
 
 gulp.task('serve', (done) => {
   browserSync.init({
@@ -115,10 +126,8 @@ gulp.task('watch', (done) => {
 });
 
 
-gulp.task('build', gulp.series('clean', 'html', 'sass', 'js'));
+gulp.task('build', gulp.series('clean', 'html', 'sass', 'js', 'static'));
 
-gulp.task('run', gulp.series('clean', 'html', 'sass', 'js', gulp.parallel('serve', 'watch')));
+gulp.task('run', gulp.series('build', gulp.parallel('serve', 'watch')));
 
 gulp.task('default', gulp.series('build'));
-
-// gulp.task('static', () => {});
