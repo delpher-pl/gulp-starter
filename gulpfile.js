@@ -20,6 +20,15 @@ const uglify = require('gulp-uglify');
 
 
 const path = {
+  lib: {
+    fonts: [
+      {
+        from: './node_modules/@fortawesome/fontawesome-free/webfonts/**/*.*',
+      },
+    ],
+    icons: [],
+    images: [],
+  },
   src: {
     main: './src/',
     htmlFileMain: './src/index.html',
@@ -35,6 +44,11 @@ const path = {
       icons: './src/icons/**/*.*',
       images: './src/img/**/*.*',
     },
+    staticDir: {
+      fonts: './src/fonts/',
+      icons: './src/icons/',
+      images: './src/img/',
+    },
   },
   dist: {
     main: './dist/',
@@ -44,6 +58,24 @@ const path = {
 };
 
 
+function copyFiles(arrOfObj, groupName) {
+  console.log('copyFiles: ', arrOfObj, groupName);
+  arrOfObj.forEach((obj) => {
+    gulp.src(obj.from)
+      .pipe(obj.to ? gulp.dest(obj.to) : gulp.dest(path.src.staticDir[groupName]));
+  });
+  console.log('copyFiles: END');
+}
+
+function copyGroupFiles(obj) {
+  console.log('copyGroupFiles: ', obj);
+  Object.keys(obj).forEach((group) => {
+    copyFiles(obj[group], group);
+  });
+  console.log('copyGroupFiles: END');
+}
+
+
 // RELOAD BROWSER
 gulp.task('reload', (done) => {
   browserSync.reload();
@@ -51,8 +83,11 @@ gulp.task('reload', (done) => {
 });
 
 // DELETE DIST FOLDER
-gulp.task('clean', (done) => {
-  del(path.dist.main);
+gulp.task('clean', () => del(path.dist.main));
+
+// COPY FILES FROM NODE_MODULES TO SRC FOLDER
+gulp.task('importFromNodeModules', (done) => {
+  copyGroupFiles(path.lib);
   done();
 });
 
@@ -75,6 +110,7 @@ gulp.task('sass', (done) => {
   gulp.src(path.src.scssFileMain)
     .pipe(sass({
       importer: tildeImporter,
+      // includePaths: ['node_modules'],
     }))
     .pipe(sourcemaps.init())
     .pipe(sass())
@@ -104,7 +140,9 @@ gulp.task('js', (done) => {
 });
 
 gulp.task('static', (done) => {
-  gulp.src(Object.values(path.src.static))
+  gulp.src(Object.values(path.src.static), {
+    base: 'src',
+  })
     .pipe(gulp.dest(path.dist.main));
   done();
 });
@@ -112,7 +150,9 @@ gulp.task('static', (done) => {
 
 gulp.task('serve', (done) => {
   browserSync.init({
-    server: './dist/',
+    // server: 'dist/',
+    server: ['.', 'dist/'],
+    directory: true,
     open: false,
   });
   done();
@@ -126,7 +166,7 @@ gulp.task('watch', (done) => {
 });
 
 
-gulp.task('build', gulp.series('clean', 'html', 'sass', 'js', 'static'));
+gulp.task('build', gulp.series('clean', 'importFromNodeModules', 'html', 'sass', 'js', 'static'));
 
 gulp.task('run', gulp.series('build', gulp.parallel('serve', 'watch')));
 
