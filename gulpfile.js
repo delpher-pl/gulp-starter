@@ -59,20 +59,16 @@ const path = {
 
 
 function copyFiles(arrOfObj, groupName) {
-  console.log('copyFiles: ', arrOfObj, groupName);
   arrOfObj.forEach((obj) => {
     gulp.src(obj.from)
       .pipe(obj.to ? gulp.dest(obj.to) : gulp.dest(path.src.staticDir[groupName]));
   });
-  console.log('copyFiles: END');
 }
 
 function copyGroupFiles(obj) {
-  console.log('copyGroupFiles: ', obj);
   Object.keys(obj).forEach((group) => {
     copyFiles(obj[group], group);
   });
-  console.log('copyGroupFiles: END');
 }
 
 
@@ -150,9 +146,9 @@ gulp.task('static', (done) => {
 
 gulp.task('serve', (done) => {
   browserSync.init({
-    // server: 'dist/',
-    server: ['.', 'dist/'],
-    directory: true,
+    server: 'dist/',
+    // server: ['.', 'dist/'],
+    // directory: true,
     open: false,
   });
   done();
