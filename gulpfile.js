@@ -60,7 +60,11 @@ const path = {
     static: {
       fonts: './src/fonts/**/*.*',
       icons: './src/icons/**/*.*',
+      iconsSVG: './src/icons/**/*.svg',
       images: './src/img/**/*.*',
+      faviconsPng: './src/*.png',
+      faviconsIco: './src/*.ico',
+      rootXml: './src/*.xml',
     },
     staticDir: {
       fonts: './src/fonts/',
