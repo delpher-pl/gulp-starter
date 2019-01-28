@@ -81,8 +81,34 @@ const path = {
 
 
 function copyFiles(arrOfObj, groupName) {
+  // TODO: MERGE LOOPS
+
+  // COPY NON BINARY FILES AND CHANGE EOL
   arrOfObj.forEach((obj) => {
     gulp.src(obj.from)
+      .pipe(isBinary())
+      .pipe(through.obj((file, enc, next) => {
+        if (file.isBinary()) {
+          next();
+          return;
+        }
+        next(null, file);
+      }))
+      .pipe(lec({ eolc: 'CRLF' }))
+      .pipe(obj.to ? gulp.dest(obj.to) : gulp.dest(path.src.staticDir[groupName]));
+  });
+
+  // COPY BINARY FILES WITHOUT CHANGING EOL
+  arrOfObj.forEach((obj) => {
+    gulp.src(obj.from)
+      .pipe(isBinary())
+      .pipe(through.obj((file, enc, next) => {
+        if (!file.isBinary()) {
+          next();
+          return;
+        }
+        next(null, file);
+      }))
       .pipe(obj.to ? gulp.dest(obj.to) : gulp.dest(path.src.staticDir[groupName]));
   });
 }
