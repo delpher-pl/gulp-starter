@@ -5,6 +5,7 @@ const del = require('del');
 const sourcemaps = require('gulp-sourcemaps');
 const concat = require('gulp-concat');
 const lec = require('gulp-line-ending-corrector');
+const isBinary = require('gulp-is-binary');
 
 // HTML
 const htmlReplace = require('gulp-html-replace');
