@@ -10,6 +10,10 @@ const through = require('through2'); // transform the stream
 const browserify = require('browserify');
 const source = require('vinyl-source-stream');
 const buffer = require('vinyl-buffer');
+
+// SVG & IMAGES
+const svgSprite = require('gulp-svg-sprite');
+
 // HTML
 const htmlReplace = require('gulp-html-replace');
 const htmlMin = require('gulp-htmlmin');
