@@ -7,6 +7,7 @@ const concat = require('gulp-concat');
 const lec = require('gulp-line-ending-corrector');
 const isBinary = require('gulp-is-binary');
 const through = require('through2'); // transform the stream
+const browserify = require('browserify');
 
 // HTML
 const htmlReplace = require('gulp-html-replace');
