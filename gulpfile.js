@@ -29,6 +29,14 @@ const babel = require('gulp-babel');
 const uglify = require('gulp-uglify');
 
 
+const SUPPORTED_BROWSERS = [
+  'last 3 versions',
+  'Firefox > 30',
+  'Chrome > 30',
+  'Opera > 30',
+];
+
+
 const path = {
   lib: {
     fonts: [
