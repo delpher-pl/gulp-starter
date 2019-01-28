@@ -4,6 +4,7 @@ const tildeImporter = require('node-sass-tilde-importer');
 const del = require('del');
 const sourcemaps = require('gulp-sourcemaps');
 const concat = require('gulp-concat');
+const lec = require('gulp-line-ending-corrector');
 
 // HTML
 const htmlReplace = require('gulp-html-replace');
