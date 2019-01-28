@@ -119,6 +119,15 @@ function copyGroupFiles(obj) {
   });
 }
 
+// FILTER FUNCTION
+function excludeIcons(el) {
+  const excluded = [
+    path.src.static.icons,
+    path.src.static.iconsSVG,
+  ];
+  return excluded.indexOf(el) === -1;
+}
+
 
 // RELOAD BROWSER
 gulp.task('reload', (done) => {
