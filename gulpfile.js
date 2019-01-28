@@ -168,12 +168,7 @@ gulp.task('sass', (done) => {
     .pipe(sourcemaps.init())
     .pipe(sass())
     .pipe(autoprefixer({
-      browsers: [
-        'last 3 versions',
-        'Firefox > 30',
-        'Chrome > 30',
-        'Opera > 30',
-      ],
+      browsers: SUPPORTED_BROWSERS,
     }))
     .pipe(cleanCSS())
     .pipe(sourcemaps.write('maps'))
