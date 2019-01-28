@@ -8,7 +8,8 @@ const lec = require('gulp-line-ending-corrector');
 const isBinary = require('gulp-is-binary');
 const through = require('through2'); // transform the stream
 const browserify = require('browserify');
-
+const source = require('vinyl-source-stream');
+const buffer = require('vinyl-buffer');
 // HTML
 const htmlReplace = require('gulp-html-replace');
 const htmlMin = require('gulp-htmlmin');
