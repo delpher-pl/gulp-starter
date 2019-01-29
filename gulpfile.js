@@ -177,12 +177,30 @@ gulp.task('sass', (done) => {
 });
 
 gulp.task('js', (done) => {
-  gulp.src([
-    path.src.jsFilesAll,
-  ])
-    .pipe(concat('main.js'))
-    .pipe(babel({ presets: ['es2015'] }))
+  browserify(path.src.jsFileMain)
+    .transform('babelify', {
+      sourceMaps: true,
+      presets: [
+        [
+          '@babel/preset-env',
+          {
+            targets: {
+              browsers: SUPPORTED_BROWSERS,
+            },
+            useBuiltIns: 'usage',
+            // forceAllTransforms: true,
+          },
+        ],
+      ],
+    })
+    .bundle()
+    // .on('error', (e) => { console.log('BROWSERIFY: ', e); })
+    .pipe(source('main.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(uglify())
+    // .on('error', (e) => { console.log('UGLIFY: ', e); })
+    .pipe(sourcemaps.write('maps'))
     .pipe(gulp.dest(path.dist.js));
   done();
 });
