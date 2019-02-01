@@ -206,7 +206,7 @@ gulp.task('js', (done) => {
 });
 
 gulp.task('static', (done) => {
-  gulp.src(Object.values(path.src.static), {
+  gulp.src(Object.values(path.src.static).filter(excludeIcons), {
     base: 'src',
   })
     .pipe(gulp.dest(path.dist.main));
