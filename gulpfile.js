@@ -247,6 +247,19 @@ gulp.task('serve', (done) => {
     // server: ['.', 'dist/'],
     // directory: true,
     open: false,
+    notify: {
+      styles: [
+        'display: none; ',
+        'padding: 6px 15px 3px;',
+        'position: fixed;',
+        'font-size: 0.8em;',
+        'z-index: 9999;',
+        'left: 5px;',
+        'bottom: 5px;',
+        'background-color: rgba(17, 17, 17, 0.9);',
+        'color: rgb(229, 229, 229, 0.9);',
+      ],
+    },
   });
   done();
 });
