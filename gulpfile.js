@@ -213,6 +213,21 @@ gulp.task('static', (done) => {
   done();
 });
 
+gulp.task('svg', (done) => {
+  const config = {
+    mode: {
+      symbol: {
+        dest: 'icons',
+        sprite: 'sprite.svg',
+      },
+    },
+  };
+
+  gulp.src(path.src.static.iconsSVG)
+    .pipe(svgSprite(config))
+    .pipe(gulp.dest(path.dist.main));
+  done();
+});
 
 gulp.task('serve', (done) => {
   browserSync.init({
