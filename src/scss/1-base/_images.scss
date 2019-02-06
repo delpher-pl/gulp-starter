@@ -1,0 +1,12 @@
+// Dealing with Microsoft Edge problems
+// https://github.com/verlok/lazyload
+
+// According to what reported in #152, for Microsoft Edge to fire the IntersectionObserver for an img element, it must have a size. Since imgs are displayed inline-block as standard, MS Edge (version not specified) doesn't read them correctly.
+// By setting the following, edge is able to see the images and they get loaded.
+
+
+img[data-src],
+img[data-srcset] {
+  display: block;
+  min-height: 1px;
+}
