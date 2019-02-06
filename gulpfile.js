@@ -272,7 +272,7 @@ gulp.task('watch', (done) => {
 });
 
 
-gulp.task('build', gulp.series('clean', 'importFromNodeModules', 'html', 'sass', 'js', 'static'));
+gulp.task('build', gulp.series('clean', 'importFromNodeModules', 'html', 'sass', 'js', 'static', 'svg'));
 
 gulp.task('run', gulp.series('build', gulp.parallel('serve', 'watch')));
 
