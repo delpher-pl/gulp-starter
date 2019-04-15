@@ -1,0 +1,35 @@
+input[type="text"],
+input[type="email"] {
+  height: 50px;
+  border-radius: 10px;
+  border: 0;
+  padding: 0 24px;
+  outline: 0;
+  &:focus {
+    box-shadow: 0 0 15px rgba(0,0,0,0.8);
+  }
+}
+
+input[type="submit"] {
+  cursor: pointer;
+}
+
+textarea {
+  border: 0;
+  padding: 24px 24px;
+  outline: 0;
+  border-radius: 10px;
+  &:focus {
+    box-shadow: 0 0 15px rgba(0,0,0,0.8);
+  }
+}
+
+.input-ok {
+  border: 1px solid $color-correct;
+  background-color: mix($color-correct, #ffffff, 10%);
+}
+
+.input-err {
+  border: 1px solid $color-error;
+  background-color: mix($color-error, #ffffff, 20%);
+}
