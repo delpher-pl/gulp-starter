@@ -5,7 +5,7 @@
   max-height: 50px;
   margin: 0;
   color: #fff;
-  background-color: $color1;
+  background-color: $color-primary;
   border-radius: 10px;
   font-size: 1em;
   font-weight: 600;
@@ -14,7 +14,7 @@
   line-height: 50px;
   transition: background-color 0.2s, border 0.2s, color 0.2s;
   &:hover {
-    background-color: $color1h;
+    background-color: $color-primary-hover;
     color: #fff;
   }
 
@@ -28,11 +28,11 @@
   }
 
   &__ghost--dark {
-    color: $color2;
+    color: $color-secondary;
     background-color: transparent;
     border: 1px solid rgba(0,0,0,0.2);
     &:hover {
-      color: $color2;
+      color: $color-secondary;
       background-color: transparent;
       border: 1px solid rgba(0,0,0,0.5);
     }
@@ -44,7 +44,7 @@
     border: 1px solid rgba(255,255,255,.5);
     &:hover {
       background-color: #fff;
-      color: $color1;
+      color: $color-primary;
       border: 1px solid rgba(255,255,255,1);
     }
   }
@@ -54,12 +54,12 @@
   }
 
   &--error {
-    background-color: $error;
-    color: $white;
+    background-color: $color-error;
+    color: $color-white;
     animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
     &:hover {
-      background-color: $error;
-      color: $white;
+      background-color: $color-error;
+      color: $color-white;
     }
   }
 }
