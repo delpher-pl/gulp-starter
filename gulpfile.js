@@ -4,7 +4,6 @@ const tildeImporter = require('node-sass-tilde-importer');
 const del = require('del');
 const sourcemaps = require('gulp-sourcemaps');
 const ghpages = require('gh-pages');
-const concat = require('gulp-concat');
 const lec = require('gulp-line-ending-corrector');
 const isBinary = require('gulp-is-binary');
 const through = require('through2'); // transform the stream
@@ -25,7 +24,6 @@ const autoprefixer = require('gulp-autoprefixer');
 const cleanCSS = require('gulp-clean-css'); // Minification
 
 // JS
-const babel = require('gulp-babel');
 const uglify = require('gulp-uglify');
 
 
